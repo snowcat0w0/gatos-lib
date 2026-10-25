@@ -1,0 +1,12 @@
+{
+  "GATOSLIB": {
+    "NoGM": "No GM is connected to handle this action.",
+    "NotOwner": "Only an owner of this document can do that.",
+    "GMOnly": "Only a GM can do that.",
+    "Pick": "Select",
+    "PickMax": "You can select up to {max}.",
+    "None": "(none)",
+    "Timeout": "The GM did not respond (timed out).",
+    "LibInactive": "{module}: the gatos-lib module must be installed and enabled."
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "module": "gatos-pf1-item-crafting",
+  "version": "0.4.1",
+  "requires": [],
+  "settings": {
+    "allowMultipleProjects": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "PF1CRAFT.Settings.allowMultipleProjects.Name",
+      "hint": "PF1CRAFT.Settings.allowMultipleProjects.Hint"
+    },
+    "customModifiers": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "",
+      "name": "PF1CRAFT.Settings.customModifiers.Name",
+      "hint": "PF1CRAFT.Settings.customModifiers.Hint"
+    },
+    "defaultHours": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 8,
+      "name": "PF1CRAFT.Settings.defaultHours.Name",
+      "hint": "PF1CRAFT.Settings.defaultHours.Hint",
+      "range": {
+        "min": 1,
+        "max": 8,
+        "step": 1
+      }
+    },
+    "enforceDailyLimit": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1CRAFT.Settings.enforceDailyLimit.Name",
+      "hint": "PF1CRAFT.Settings.enforceDailyLimit.Hint"
+    },
+    "featNameOverrides": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "",
+      "name": "PF1CRAFT.Settings.featNameOverrides.Name",
+      "hint": "PF1CRAFT.Settings.featNameOverrides.Hint"
+    },
+    "openForGM": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1CRAFT.Settings.openForGM.Name",
+      "hint": "PF1CRAFT.Settings.openForGM.Hint"
+    },
+    "openOnRest": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1CRAFT.Settings.openOnRest.Name",
+      "hint": "PF1CRAFT.Settings.openOnRest.Hint"
+    },
+    "skipRollDialog": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "PF1CRAFT.Settings.skipRollDialog.Name",
+      "hint": "PF1CRAFT.Settings.skipRollDialog.Hint"
+    },
+    "spellPacks": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "",
+      "name": "PF1CRAFT.Settings.spellPacks.Name",
+      "hint": "PF1CRAFT.Settings.spellPacks.Hint"
+    }
+  },
+  "menus": {},
+  "keybindings": {},
+  "api": [
+    "CRAFT_TYPES",
+    "CraftingDialog",
+    "MODIFIERS",
+    "StatBlockImportDialog",
+    "crafter",
+    "open",
+    "rules",
+    "statblock"
+  ],
+  "hooks": {
+    "getActorSheetHeaderButtons": 1,
+    "getHeaderControlsActorSheetV2": 1,
+    "init": 1,
+    "pf1ActorRest": 1
+  },
+  "langPrefixes": [],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "PF1CRAFT.Arms.${k}",
+    "PF1CRAFT.Artificer.${f.limited}Hint",
+    "PF1CRAFT.Artificer.${key}",
+    "PF1CRAFT.Artificer.${k}",
+    "PF1CRAFT.Artificer.${k}Hint",
+    "PF1CRAFT.Artificer.List.${k}",
+    "PF1CRAFT.Artificer.List.${l}",
+    "PF1CRAFT.Settings.${key}.Hint",
+    "PF1CRAFT.Settings.${key}.Name",
+    "PF1CRAFT.Type.${d.type}",
+    "PF1CRAFT.Type.${f.key}",
+    "PF1CRAFT.Type.${k}",
+    "PF1CRAFT.Type.${p.type}",
+    "PF1CRAFT.Type.${project.type}",
+    "PF1CRAFT.Type.${s.type}"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

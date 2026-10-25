@@ -1,0 +1,94 @@
+/* gatos-lib — shared styles for library-rendered markup only.
+   Consumers keep their own prefixed classes; library markup carries these plus the caller's class. */
+
+/* Selection rows used by pickList()/pickOne() dialogs */
+.gatos-pick-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin: 0.25rem 0;
+}
+.gatos-pick-row,
+.gatos-check-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.4rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.gatos-pick-row:hover,
+.gatos-check-row:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+.gatos-pick-row input,
+.gatos-check-row input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+.gatos-pick-row img,
+.gatos-check-row img {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border: 1px solid var(--color-border-dark-tertiary, #7a7971);
+  border-radius: 3px;
+}
+.gatos-pick-row span,
+.gatos-check-row span {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.gatos-pick-row.disabled,
+.gatos-check-row.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.gatos-pick-counter {
+  text-align: right;
+  font-size: var(--font-size-12, 12px);
+  opacity: 0.8;
+}
+
+/* Chat cards posted by postCard() */
+.gatos-card header {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: bold;
+  border-bottom: 1px solid var(--color-border-light-primary, #b5b3a4);
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.15rem;
+}
+.gatos-card header i {
+  flex: 0 0 auto;
+}
+
+/* Utilities */
+.gatos-dim {
+  opacity: 0.6;
+}
+.gatos-danger {
+  color: var(--color-level-error, #c00);
+}
+
+/* Brief highlight applied by jumpToMessage() */
+.gatos-flash {
+  animation: gatos-flash 1.6s ease-out;
+}
+@keyframes gatos-flash {
+  0% { box-shadow: inset 0 0 0 2px var(--color-warm-2, #d9a334); }
+  100% { box-shadow: inset 0 0 0 2px transparent; }
+}
+
+/* Library dialogs (formDialog/pickList/...) carry this class next to the caller classes */
+.gatos-dialog .gatos-pick-row.checked,
+.gatos-dialog .gatos-check-row.checked {
+  background: rgba(0, 0, 0, 0.12);
+}

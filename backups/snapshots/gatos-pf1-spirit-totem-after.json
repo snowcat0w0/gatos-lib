@@ -1,0 +1,22 @@
+{
+  "module": "gatos-pf1-spirit-totem",
+  "version": "0.2.0",
+  "requires": [
+    "gatos-lib",
+    "gatos-pf1-lib"
+  ],
+  "settings": {},
+  "menus": {},
+  "keybindings": {},
+  "api": [],
+  "hooks": {
+    "init": 3,
+    "pf1PreAttackRoll": 1,
+    "pf1PreDamageRoll": 1
+  },
+  "langPrefixes": [],
+  "langUnresolved": [],
+  "langDynamicPatterns": [],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

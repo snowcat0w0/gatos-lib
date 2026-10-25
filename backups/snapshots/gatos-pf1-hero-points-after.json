@@ -1,0 +1,88 @@
+{
+  "module": "gatos-pf1-hero-points",
+  "version": "0.2.0",
+  "requires": [
+    "gatos-lib",
+    "gatos-pf1-lib"
+  ],
+  "settings": {
+    "announceChanges": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1HP.Settings.AnnounceChanges.Name",
+      "hint": "PF1HP.Settings.AnnounceChanges.Hint"
+    },
+    "defaultMax": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 3,
+      "name": "PF1HP.Settings.DefaultMax.Name",
+      "hint": "PF1HP.Settings.DefaultMax.Hint",
+      "range": {
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    },
+    "levelUpGrant": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1HP.Settings.LevelUpGrant.Name",
+      "hint": "PF1HP.Settings.LevelUpGrant.Hint"
+    },
+    "roundLimit": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1HP.Settings.RoundLimit.Name",
+      "hint": "PF1HP.Settings.RoundLimit.Hint"
+    },
+    "starting": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 1,
+      "name": "PF1HP.Settings.Starting.Name",
+      "hint": "PF1HP.Settings.Starting.Hint",
+      "range": {
+        "min": 0,
+        "max": 10,
+        "step": 1
+      }
+    }
+  },
+  "menus": {},
+  "keybindings": {},
+  "api": [
+    "EFFECTS",
+    "adjustHeroPoints",
+    "getHeroPoints",
+    "setHeroPoints",
+    "setHeroPointsMax",
+    "spendHeroPoint",
+    "useHeroPoint"
+  ],
+  "hooks": {
+    "init": 3,
+    "pf1ClassLevelChange": 1,
+    "renderActorSheetPF": 1
+  },
+  "langPrefixes": [
+    "PF1HP"
+  ],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "PF1HP.Effect.${effectKey}.Desc",
+    "PF1HP.Effect.${effectKey}.Name",
+    "PF1HP.Effect.${key}.Desc",
+    "PF1HP.Effect.${key}.Name"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

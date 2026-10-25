@@ -1,0 +1,10 @@
+{
+  "name": "gatos-lib",
+  "version": "1.0.0-alpha.1",
+  "private": true,
+  "type": "module",
+  "description": "Gato's Library for Foundry VTT - shared, system-agnostic helpers for the gatos-* modules",
+  "scripts": {
+    "test": "node --test test/"
+  }
+}

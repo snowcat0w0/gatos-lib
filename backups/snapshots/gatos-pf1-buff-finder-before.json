@@ -1,0 +1,85 @@
+{
+  "module": "gatos-pf1-buff-finder",
+  "version": "0.1.0",
+  "requires": [],
+  "settings": {
+    "allowPlayerTargets": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1BF.Settings.AllowPlayerTargets",
+      "hint": "GPF1BF.Settings.AllowPlayerTargetsHint"
+    },
+    "chatMessage": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "GPF1BF.Settings.ChatMessage",
+      "hint": "GPF1BF.Settings.ChatMessageHint"
+    },
+    "position": {
+      "scope": "client",
+      "config": false,
+      "type": "Object",
+      "default": {}
+    },
+    "tokenHudButton": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1BF.Settings.TokenHud",
+      "hint": "GPF1BF.Settings.TokenHudHint"
+    },
+    "uiState": {
+      "scope": "client",
+      "config": false,
+      "type": "Object",
+      "default": {}
+    }
+  },
+  "menus": {},
+  "keybindings": {
+    "toggle": {
+      "name": "GPF1BF.Keybind.Toggle",
+      "hint": "GPF1BF.Keybind.ToggleHint",
+      "editable": [
+        {
+          "key": "KeyB",
+          "modifiers": [
+            "Shift"
+          ]
+        }
+      ],
+      "restricted": false
+    }
+  },
+  "api": [
+    "BuffFinder",
+    "apply",
+    "close",
+    "getCatalog",
+    "open",
+    "rebuild",
+    "toggle"
+  ],
+  "hooks": {
+    "canvasReady": 1,
+    "controlToken": 1,
+    "createItem": 1,
+    "deleteItem": 1,
+    "getSceneControlButtons": 1,
+    "init": 1,
+    "ready": 1,
+    "renderTokenHUD": 1,
+    "targetToken": 1,
+    "updateItem": 1,
+    "updateUser": 1
+  },
+  "langPrefixes": [],
+  "langUnresolved": [],
+  "langDynamicPatterns": [],
+  "langDynamicUnmatched": []
+}

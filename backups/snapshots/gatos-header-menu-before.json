@@ -1,0 +1,104 @@
+{
+  "module": "gatos-header-menu",
+  "version": "0.1.0",
+  "requires": [],
+  "settings": {
+    "enabled": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GATOSHM.Settings.enabled.Name",
+      "hint": "GATOSHM.Settings.enabled.Hint",
+      "onChange": true
+    },
+    "iconOnly": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "GATOSHM.Settings.iconOnly.Name",
+      "hint": "GATOSHM.Settings.iconOnly.Hint",
+      "onChange": true
+    },
+    "keep": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "close, configure-token",
+      "name": "GATOSHM.Settings.keep.Name",
+      "hint": "GATOSHM.Settings.keep.Hint",
+      "onChange": true
+    },
+    "known": {
+      "scope": "client",
+      "config": false,
+      "type": "Object",
+      "default": {}
+    },
+    "minHidden": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 1,
+      "name": "GATOSHM.Settings.minHidden.Name",
+      "hint": "GATOSHM.Settings.minHidden.Hint",
+      "range": {
+        "min": 1,
+        "max": 5,
+        "step": 1
+      },
+      "onChange": true
+    },
+    "scope": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "actorItem",
+      "name": "GATOSHM.Settings.scope.Name",
+      "hint": "GATOSHM.Settings.scope.Hint",
+      "choices": {
+        "actor": "GATOSHM.Scope.actor",
+        "actorItem": "GATOSHM.Scope.actorItem",
+        "document": "GATOSHM.Scope.document",
+        "all": "GATOSHM.Scope.all"
+      },
+      "onChange": true
+    },
+    "showMenuLabel": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "GATOSHM.Settings.showMenuLabel.Name",
+      "hint": "GATOSHM.Settings.showMenuLabel.Hint",
+      "onChange": true
+    }
+  },
+  "menus": {
+    "configure": {
+      "name": "GATOSHM.ConfigTitle",
+      "label": "GATOSHM.Configure",
+      "hint": "GATOSHM.ConfigMenuHint",
+      "icon": "fa-solid fa-sliders",
+      "restricted": true,
+      "type": "HeaderMenuConfig"
+    }
+  },
+  "keybindings": {},
+  "api": [],
+  "hooks": {
+    "closeApplication": 1,
+    "init": 1,
+    "ready": 1,
+    "setup": 1
+  },
+  "langPrefixes": [],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "GATOSHM.Settings.${key}.Hint",
+    "GATOSHM.Settings.${key}.Name"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

@@ -1,0 +1,345 @@
+{
+  "module": "gatos-visual-novel",
+  "version": "0.4.0",
+  "requires": [
+    "gatos-lib",
+    "gatos-chat-tools"
+  ],
+  "settings": {
+    "dialogueFontSize": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 18,
+      "name": "GVN.Settings.DialogueFontSize.Name",
+      "hint": "GVN.Settings.DialogueFontSize.Hint",
+      "range": {
+        "min": 12,
+        "max": 32,
+        "step": 1
+      },
+      "onChange": true
+    },
+    "dialogueOpacity": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 0.8,
+      "name": "GVN.Settings.DialogueOpacity.Name",
+      "hint": "GVN.Settings.DialogueOpacity.Hint",
+      "range": {
+        "min": 0.2,
+        "max": 1,
+        "step": 0.05
+      },
+      "onChange": true
+    },
+    "dimStyle": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "grayscale",
+      "name": "GVN.Settings.DimStyle.Name",
+      "hint": "GVN.Settings.DimStyle.Hint",
+      "choices": {
+        "grayscale": "GVN.Settings.DimStyle.Grayscale",
+        "darken": "GVN.Settings.DimStyle.Darken",
+        "none": "GVN.Settings.DimStyle.None"
+      },
+      "onChange": true
+    },
+    "displayOverrides": {
+      "scope": "client",
+      "config": false,
+      "type": "Object",
+      "default": {},
+      "onChange": true
+    },
+    "exportStands": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GVN.Settings.ExportStands.Name",
+      "hint": "GVN.Settings.ExportStands.Hint"
+    },
+    "hideInCombat": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "GVN.Settings.HideInCombat.Name",
+      "hint": "GVN.Settings.HideInCombat.Hint",
+      "onChange": true
+    },
+    "idleMinutes": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 0,
+      "name": "GVN.Settings.IdleMinutes.Name",
+      "hint": "GVN.Settings.IdleMinutes.Hint",
+      "range": {
+        "min": 0,
+        "max": 120,
+        "step": 5
+      }
+    },
+    "inlineTag": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GVN.Settings.InlineTag.Name",
+      "hint": "GVN.Settings.InlineTag.Hint"
+    },
+    "inlineTagSticky": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "GVN.Settings.InlineTagSticky.Name",
+      "hint": "GVN.Settings.InlineTagSticky.Hint"
+    },
+    "keywords": {
+      "scope": "world",
+      "config": false,
+      "type": "Object",
+      "default": {
+        "list": []
+      },
+      "onChange": true
+    },
+    "linkPermission": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "OBSERVER",
+      "name": "GVN.Settings.LinkPermission.Name",
+      "hint": "GVN.Settings.LinkPermission.Hint",
+      "choices": {
+        "LIMITED": "GVN.Settings.LinkPermission.Limited",
+        "OBSERVER": "GVN.Settings.LinkPermission.Observer",
+        "OWNER": "GVN.Settings.LinkPermission.Owner"
+      }
+    },
+    "maxSlots": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 6,
+      "name": "GVN.Settings.MaxSlots.Name",
+      "hint": "GVN.Settings.MaxSlots.Hint",
+      "range": {
+        "min": 1,
+        "max": 6,
+        "step": 1
+      },
+      "onChange": true
+    },
+    "oocMode": {
+      "scope": "client",
+      "config": true,
+      "type": "String",
+      "default": "gmNarration",
+      "name": "GVN.Settings.OocMode.Name",
+      "hint": "GVN.Settings.OocMode.Hint",
+      "choices": {
+        "gmNarration": "GVN.Settings.OocMode.GmNarration",
+        "narration": "GVN.Settings.OocMode.Narration",
+        "ignore": "GVN.Settings.OocMode.Ignore"
+      },
+      "onChange": true
+    },
+    "pickerMode": {
+      "scope": "client",
+      "config": true,
+      "type": "String",
+      "default": "thumbnails",
+      "name": "GVN.Settings.PickerMode.Name",
+      "hint": "GVN.Settings.PickerMode.Hint",
+      "choices": {
+        "thumbnails": "GVN.Settings.PickerMode.Thumbnails",
+        "names": "GVN.Settings.PickerMode.Names",
+        "dropdown": "GVN.Settings.PickerMode.Dropdown"
+      },
+      "onChange": true
+    },
+    "playersCanToggle": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GVN.Settings.PlayersCanToggle.Name",
+      "hint": "GVN.Settings.PlayersCanToggle.Hint",
+      "onChange": true
+    },
+    "rebuildCount": {
+      "scope": "client",
+      "config": true,
+      "type": "Number",
+      "default": 40,
+      "name": "GVN.Settings.RebuildCount.Name",
+      "hint": "GVN.Settings.RebuildCount.Hint",
+      "range": {
+        "min": 0,
+        "max": 200,
+        "step": 10
+      }
+    },
+    "rollMode": {
+      "scope": "client",
+      "config": true,
+      "type": "String",
+      "default": "ignore",
+      "name": "GVN.Settings.RollMode.Name",
+      "hint": "GVN.Settings.RollMode.Hint",
+      "choices": {
+        "ignore": "GVN.Settings.RollMode.Ignore",
+        "narration": "GVN.Settings.RollMode.Narration"
+      },
+      "onChange": true
+    },
+    "showRefInStage": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GVN.Settings.ShowRefInStage.Name",
+      "hint": "GVN.Settings.ShowRefInStage.Hint",
+      "onChange": true
+    },
+    "stageClearedAt": {
+      "scope": "world",
+      "config": false,
+      "type": "Number",
+      "default": 0,
+      "onChange": true
+    },
+    "stageEnabled": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GVN.Settings.StageEnabled.Name",
+      "hint": "GVN.Settings.StageEnabled.Hint",
+      "onChange": true
+    },
+    "standHeight": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 85,
+      "name": "GVN.Settings.StandHeight.Name",
+      "hint": "GVN.Settings.StandHeight.Hint",
+      "range": {
+        "min": 40,
+        "max": 100,
+        "step": 5
+      },
+      "onChange": true
+    },
+    "standLayout": {
+      "scope": "world",
+      "config": true,
+      "type": "String",
+      "default": "spread",
+      "name": "GVN.Settings.StandLayout.Name",
+      "hint": "GVN.Settings.StandLayout.Hint",
+      "choices": {
+        "spread": "GVN.Settings.StandLayout.Spread",
+        "fixed": "GVN.Settings.StandLayout.Fixed"
+      },
+      "onChange": true
+    },
+    "typewriterMs": {
+      "scope": "world",
+      "config": true,
+      "type": "Number",
+      "default": 0,
+      "name": "GVN.Settings.Typewriter.Name",
+      "hint": "GVN.Settings.Typewriter.Hint",
+      "range": {
+        "min": 0,
+        "max": 100,
+        "step": 5
+      }
+    }
+  },
+  "menus": {
+    "displayMenu": {
+      "name": "GVN.Settings.DisplayMenu.Name",
+      "label": "GVN.Settings.DisplayMenu.Label",
+      "hint": "GVN.Settings.DisplayMenu.Hint",
+      "icon": "fa-solid fa-display",
+      "restricted": false,
+      "type": "DisplaySettingsConfig"
+    }
+  },
+  "keybindings": {
+    "toggleStage": {
+      "name": "GVN.Stage.Toggle",
+      "editable": []
+    }
+  },
+  "api": [
+    "PlayerCore",
+    "StageDOM",
+    "StageState",
+    "broadcastStage",
+    "describe",
+    "getCurrentExpression",
+    "getExpressions",
+    "openExpressionConfig",
+    "openKeywordManager",
+    "openRef",
+    "player",
+    "resolveImages",
+    "resolveKeyword",
+    "setCurrentExpression",
+    "setExpressions",
+    "stage",
+    "toEntry"
+  ],
+  "hooks": {
+    "collapseSidebar": 1,
+    "combatStart": 1,
+    "createChatMessage": 1,
+    "createCombat": 1,
+    "deleteChatMessage": 1,
+    "deleteCombat": 1,
+    "gctArchiveHeader": 1,
+    "gctExportBundle": 1,
+    "gctExportLog": 1,
+    "gctExportRender": 1,
+    "gctSerializeMessage": 1,
+    "gctSpeakerBarMounted": 1,
+    "gctSpeakerBarResolve": 1,
+    "gctSpeakerBarUpdated": 1,
+    "gctSpeakerResolved": 1,
+    "getActorContextOptions": 1,
+    "getActorSheetHeaderButtons": 1,
+    "getHeaderControlsActorSheetV2": 1,
+    "init": 2,
+    "preCreateChatMessage": 1,
+    "preUpdateChatMessage": 2,
+    "ready": 1,
+    "renderChatInput": 1,
+    "renderChatLog": 1,
+    "renderChatMessageHTML": 1,
+    "updateActor": 1,
+    "updateChatMessage": 1,
+    "updateCombat": 1
+  },
+  "langPrefixes": [
+    "GVN"
+  ],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "GVN.Editor.${k}",
+    "GVN.Export.Type.${ref.type}",
+    "GVN.Player.${k}"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

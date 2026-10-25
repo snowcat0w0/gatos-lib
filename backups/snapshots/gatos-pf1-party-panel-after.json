@@ -1,0 +1,123 @@
+{
+  "module": "gatos-pf1-party-panel",
+  "version": "0.2.0",
+  "requires": [
+    "gatos-lib",
+    "gatos-pf1-lib"
+  ],
+  "settings": {
+    "autoParty": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "PF1PARTY.Settings.AutoParty",
+      "hint": "PF1PARTY.Settings.AutoPartyHint",
+      "onChange": true
+    },
+    "openOnReady": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": false,
+      "name": "PF1PARTY.Settings.OpenOnReady",
+      "hint": "PF1PARTY.Settings.OpenOnReadyHint"
+    },
+    "party": {
+      "scope": "world",
+      "config": false,
+      "type": "Array",
+      "default": [],
+      "onChange": true
+    },
+    "playersSeeDetails": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1PARTY.Settings.PlayersSeeDetails",
+      "hint": "PF1PARTY.Settings.PlayersSeeDetailsHint",
+      "onChange": true
+    },
+    "position": {
+      "scope": "client",
+      "config": false,
+      "type": "Object",
+      "default": {}
+    },
+    "showDefense": {
+      "scope": "client",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "PF1PARTY.Settings.ShowDefense",
+      "hint": "PF1PARTY.Settings.ShowDefenseHint",
+      "onChange": true
+    }
+  },
+  "menus": {},
+  "keybindings": {
+    "togglePanel": {
+      "name": "PF1PARTY.Keybind.Toggle",
+      "hint": "PF1PARTY.Keybind.ToggleHint",
+      "editable": [
+        {
+          "key": "KeyP",
+          "modifiers": [
+            "Shift"
+          ]
+        }
+      ],
+      "restricted": false
+    }
+  },
+  "api": [
+    "PartyManager",
+    "PartyPanel",
+    "close",
+    "getPartyActors",
+    "manage",
+    "open",
+    "refresh",
+    "targetActor",
+    "toggle"
+  ],
+  "hooks": {
+    "canvasReady": 1,
+    "combatRound": 1,
+    "combatStart": 1,
+    "combatTurn": 1,
+    "createActiveEffect": 1,
+    "createActor": 1,
+    "createCombat": 1,
+    "createCombatant": 1,
+    "createItem": 1,
+    "createToken": 1,
+    "deleteActiveEffect": 1,
+    "deleteActor": 1,
+    "deleteCombat": 1,
+    "deleteCombatant": 1,
+    "deleteItem": 1,
+    "deleteToken": 1,
+    "getSceneControlButtons": 1,
+    "init": 3,
+    "ready": 1,
+    "targetToken": 1,
+    "updateActiveEffect": 1,
+    "updateActor": 1,
+    "updateCombat": 1,
+    "updateCombatant": 1,
+    "updateItem": 1,
+    "updateToken": 1,
+    "updateUser": 1
+  },
+  "langPrefixes": [
+    "PF1PARTY"
+  ],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "PF1PARTY.HpState.${hp.state}"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

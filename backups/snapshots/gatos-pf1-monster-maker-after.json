@@ -1,0 +1,32 @@
+{
+  "module": "gatos-pf1-monster-maker",
+  "version": "0.2.0",
+  "requires": [
+    "gatos-lib",
+    "gatos-pf1-lib"
+  ],
+  "settings": {},
+  "menus": {},
+  "keybindings": {},
+  "api": [
+    "MonsterMakerDialog",
+    "buildActorData",
+    "builder",
+    "create",
+    "open",
+    "update"
+  ],
+  "hooks": {
+    "getActorSheetHeaderButtons": 1,
+    "getHeaderControlsActorSheetV2": 1,
+    "init": 3,
+    "renderActorDirectory": 1
+  },
+  "langPrefixes": [],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "GPMM.AbilityType.${k}"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}

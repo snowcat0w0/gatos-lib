@@ -1,0 +1,112 @@
+{
+  "module": "gatos-pf1-light",
+  "version": "0.2.0",
+  "requires": [
+    "gatos-lib",
+    "gatos-pf1-lib"
+  ],
+  "settings": {
+    "announce": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1L.Settings.Announce.Name",
+      "hint": "GPF1L.Settings.Announce.Hint"
+    },
+    "autoDetect": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1L.Settings.AutoDetect.Name",
+      "hint": "GPF1L.Settings.AutoDetect.Hint"
+    },
+    "hudButtons": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1L.Settings.HudButtons.Name",
+      "hint": "GPF1L.Settings.HudButtons.Hint"
+    },
+    "raceSenses": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1L.Settings.RaceSenses.Name",
+      "hint": "GPF1L.Settings.RaceSenses.Hint"
+    },
+    "updatePrototype": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1L.Settings.UpdatePrototype.Name",
+      "hint": "GPF1L.Settings.UpdatePrototype.Hint"
+    },
+    "visionReview": {
+      "scope": "world",
+      "config": true,
+      "type": "Boolean",
+      "default": true,
+      "name": "GPF1L.Settings.VisionReview.Name",
+      "hint": "GPF1L.Settings.VisionReview.Hint"
+    }
+  },
+  "menus": {},
+  "keybindings": {},
+  "api": [
+    "PRESETS",
+    "applyActorLight",
+    "applyPreset",
+    "applyRaceSenses",
+    "collectActorLights",
+    "detectPreset",
+    "dropLight",
+    "droppableLights",
+    "extinguishActor",
+    "getLightConfig",
+    "lightActor",
+    "mergeLights",
+    "nearbyDropped",
+    "pickUpLight",
+    "raceSenses",
+    "refreshActor",
+    "refreshTokenVision",
+    "resetCustomVision",
+    "reviewCandidates",
+    "toLightData",
+    "visionReview"
+  ],
+  "hooks": {
+    "canvasReady": 1,
+    "createItem": 2,
+    "createToken": 1,
+    "deleteItem": 1,
+    "init": 3,
+    "pf1PostActionUse": 1,
+    "pf1ToggleActorBuff": 1,
+    "preUpdateToken": 1,
+    "ready": 1,
+    "renderItemSheetPF": 1,
+    "renderTokenHUD": 2,
+    "setup": 1,
+    "updateActor": 1,
+    "updateItem": 1
+  },
+  "langPrefixes": [
+    "GPF1L"
+  ],
+  "langUnresolved": [],
+  "langDynamicPatterns": [
+    "GPF1L.Preset.${cfg.preset}",
+    "GPF1L.Preset.${detected}",
+    "GPF1L.Preset.${key}",
+    "GPF1L.Trigger.${cfg.trigger}",
+    "GPF1L.Trigger.${defaultTrigger}"
+  ],
+  "langDynamicUnmatched": [],
+  "namespaceUnknown": []
+}
