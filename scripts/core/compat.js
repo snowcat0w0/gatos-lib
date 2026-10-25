@@ -12,8 +12,8 @@
  * HM header-menu, TC turn-control, CK coc7-ko.
  */
 
-/** Major Foundry generation (12, 13, ...). Defaults to 13 before `game.release` exists. */
-export const generation = () => game.release?.generation ?? 13;
+/** Major Foundry generation (12, 13, 14, ...). Defaults to 14 before `game.release` exists. */
+export const generation = () => game.release?.generation ?? 14;
 
 /**
  * Resolve a configurable class: `Cls.implementation` (the CONFIG override) when the class offers one,
@@ -81,8 +81,10 @@ export function htmlRoot(html) {
 /**
  * Hook names that differ between sheet frameworks or Foundry versions.
  * - actorSheetHeader: AppV1 sheets (game-system sheets that still use AppV1) vs AppV2 actor sheets
- * - actorContext: actor directory context menu (v13: `get${documentName}ContextOptions`)
- * - journalRender: AppV2 journal sheet (v13) and the AppV1 one (v12)
+ * - actorContext: actor directory context menu (v13+: `get${documentName}ContextOptions`). v14 entries are
+ *   `{label, icon, visible, onClick(event, target)}`; `name` / `condition` / `callback` still work but warn
+ *   (client/applications/ux/context-menu.mjs).
+ * - journalRender: AppV2 journal sheet (v13+) and the AppV1 one (v12)
  */
 export const HOOKS = Object.freeze({
   actorSheetHeader: Object.freeze({ v1: "getActorSheetHeaderButtons", v2: "getHeaderControlsActorSheetV2" }),

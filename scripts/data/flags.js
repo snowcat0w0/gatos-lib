@@ -18,8 +18,50 @@ const clone = (v) => (v && typeof v === "object" ? foundry.utils.deepClone(v) : 
 /** `flags.${id}.${key}` */
 export const flagKey = (id, key) => `flags.${id}.${key}`;
 
-/** `flags.${id}.-=${key}` — update key that deletes the flag (value null). */
+/**
+ * `flags.${id}.-=${key}` — update key that deletes the flag (value null).
+ * @deprecated Legacy `-=` syntax: Foundry v14 still honours it but logs a compatibility warning (removed in v16,
+ *   common/utils/helpers.mjs `_migrateDeletionKey`). Use `flagDeletion` for update data and `isFlagDeleted`
+ *   to test hook changes, which no longer carry `-=` keys.
+ */
 export const flagDeleteKey = (id, key) => `flags.${id}.-=${key}`;
+
+/** The v14 forced-deletion operator: the shared `_del` global (client/client.mjs). */
+export const deletionOp = () => globalThis._del ?? new foundry.data.operators.ForcedDeletion();
+
+/** Is the value a v14 update operator (ForcedDeletion / ForcedReplacement)? */
+const isOperator = (v) => {
+  const Op = globalThis.foundry?.data?.operators?.DataFieldOperator;
+  return !!Op && v instanceof Op;
+};
+
+/** Is the value a v14 ForcedDeletion operator? */
+export const isDeletion = (v) => {
+  const Op = globalThis.foundry?.data?.operators?.ForcedDeletion;
+  return !!Op && v instanceof Op;
+};
+
+/**
+ * Update data deleting flags.<id>.<key>: `{ "flags.<id>.<key>": _del }`. Spread it into an update object.
+ * `prefix` is prepended to the path (e.g. "prototypeToken.").
+ */
+export const flagDeletion = (id, key, { prefix = "" } = {}) => ({ [`${prefix}${flagKey(id, key)}`]: deletionOp() });
+
+/**
+ * Did an update's `changes` (pre/update hooks) delete flags.<id>.<key>, or one of its parents?
+ * In v14 the changes hold a ForcedDeletion at the deleted path (the `-=` keys of a legacy update are migrated
+ * before hooks run); legacy `-=` keys are still recognised.
+ */
+export function isFlagDeleted(changes, id, key) {
+  let node = changes;
+  for (const seg of ["flags", id, ...String(key).split(".")]) {
+    if (!node || typeof node !== "object") return false;
+    if (isDeletion(node)) return true;
+    if (`-=${seg}` in node) return true;
+    node = node[seg];
+  }
+  return isDeletion(node);
+}
 
 /**
  * Was this update/create issued by the module itself? Checks the `options[id]` marker
@@ -46,15 +88,18 @@ export function getFlagOr(doc, id, key, dflt, { validate } = {}) {
 /*  User flag stores                            */
 /* -------------------------------------------- */
 
-/** Does an updateUser change set touch flags.<id>.<key> (set, deleted with -= or replaced with ==)? */
+/**
+ * Does an updateUser change set touch flags.<id>.<key> (set, deleted or replaced)? v14 changes carry
+ * ForcedDeletion / ForcedReplacement operators; the legacy -= / == keys are still recognised.
+ */
 function touchesFlag(changes, id, key) {
   const flags = changes?.flags;
   if (!flags || typeof flags !== "object") return false;
-  if (`-=${id}` in flags) return true;
+  if (isOperator(flags) || `-=${id}` in flags || `==${id}` in flags) return true;
   let node = flags[id];
   if (!node || typeof node !== "object") return false;
   for (const seg of key.split(".")) {
-    if (!node || typeof node !== "object") return true; // a parent was replaced wholesale
+    if (!node || typeof node !== "object" || isOperator(node)) return true; // a parent was replaced or deleted wholesale
     if (`-=${seg}` in node || `==${seg}` in node) return true;
     if (!(seg in node)) return false;
     node = node[seg];
@@ -80,7 +125,7 @@ export function watchUserFlag(mod, key, fn, read = () => getFlagOr(game.user, mo
  *   so missing keys keep their defaults).
  * - set(v): setFlag (null / undefined unsets).  unset(): unsetFlag.
  * - toggle(): flips a boolean flag.  toggle(item): adds/removes item in an array flag.
- *   toggle(subKey, value = true): adds/removes a sub-key of an object flag (deleted with -=).
+ *   toggle(subKey, value = true): adds/removes a sub-key of an object flag (deleted with `_del`).
  *   Each toggle resolves to the new on/off state.
  * - watch(fn): updateUser watcher, see watchUserFlag. onChange in the options registers one immediately.
  */
@@ -111,7 +156,7 @@ export function userFlagStore(mod, key, { default: dflt = null, onChange } = {})
       return i < 0;
     }
     const on = !current?.[item];
-    await game.user.update({ [on ? `${flagKey(id, key)}.${item}` : `${flagKey(id, key)}.-=${item}`]: on ? value : null });
+    await game.user.update({ [`${flagKey(id, key)}.${item}`]: on ? value : deletionOp() });
     return on;
   }
 
@@ -177,5 +222,5 @@ export function stashField(doc, path, mod, key, { prefix = "", pick } = {}) {
 export function restoreField(doc, path, mod, key, { prefix = "" } = {}) {
   const stashed = getFlagOr(doc, mod.id, key, undefined);
   if (stashed === undefined) return null;
-  return { [`${prefix}${path}`]: clone(stashed), [`${prefix}${flagDeleteKey(mod.id, key)}`]: null };
+  return { [`${prefix}${path}`]: clone(stashed), ...flagDeletion(mod.id, key, { prefix }) };
 }

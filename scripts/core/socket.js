@@ -4,7 +4,7 @@
  * One `createSocket(mod)` per consumer module, on the `module.<id>` channel
  * (the consumer's module.json needs `"socket": true`).
  *
- * Server facts (Foundry v13 `dist/server/sockets.mjs` `handleCustomSocket`):
+ * Server facts (Foundry v13 and v14 `dist/server/sockets.mjs` `handleCustomSocket`, unchanged):
  *  - without options the message is `socket.broadcast.emit(event, data, senderUserId)`
  *    — every other client receives it, never the sender itself;
  *  - with `{ recipients: [userId, …] }` it is emitted only to those users' sockets

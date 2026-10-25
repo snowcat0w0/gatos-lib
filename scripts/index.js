@@ -14,7 +14,7 @@ import * as pureDom from "./pure/dom.js";
 import * as pureFn from "./pure/fn.js";
 
 export const LIB_ID = "gatos-lib";
-export const LIB_VERSION = "1.0.0-alpha.1";
+export const LIB_VERSION = "1.1.0-alpha.1";
 
 // core
 export * from "./core/module.js";

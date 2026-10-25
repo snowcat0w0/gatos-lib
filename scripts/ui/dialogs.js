@@ -3,8 +3,9 @@
  *
  * All helpers wrap `foundry.applications.api.DialogV2.wait` with `rejectClose: false` and resolve `null` when
  * the dialog is cancelled or closed (confirm resolves `false`). Default button labels are Foundry core lang keys
- * ("Confirm", "Cancel", "Yes", "No") so they still read correctly when gatos-lib's own lang files are not
- * loaded; only the pick dialogs use `GATOSLIB.Pick` / `GATOSLIB.PickMax`, with a core fallback.
+ * ("COMMON.Confirm", "COMMON.Cancel", "COMMON.Yes", "COMMON.No" — v14 moved the bare v13 keys under COMMON)
+ * so they still read correctly when gatos-lib's own lang files are not loaded; only the pick dialogs use
+ * `GATOSLIB.Pick` / `GATOSLIB.PickMax`, with a core fallback.
  *
  * DialogV2 facts relied on (client/applications/api/dialog.mjs):
  * - content is wrapped in `<form class="dialog-form">`, so `button.form` is the form;
@@ -113,7 +114,7 @@ export async function formDialog({
   if (ok !== false) {
     const { read: _r, callback, ...def } = ok ?? {};
     list.push({
-      label: "Confirm",
+      label: "COMMON.Confirm",
       icon: "fa-solid fa-check",
       ...def,
       action: def.action ?? "ok",
@@ -135,7 +136,7 @@ export async function formDialog({
 
   if (cancel !== false) {
     list.push({
-      label: "Cancel",
+      label: "COMMON.Cancel",
       icon: "fa-solid fa-xmark",
       ...(cancel ?? {}),
       action: cancel?.action ?? "cancel",
@@ -167,8 +168,8 @@ export async function confirm({ title, icon, content = "", yes = {}, no = {}, de
     width,
     content: isHTML(content) ? content : `<p>${content}</p>`,
     buttons: [
-      { action: "yes", label: "Yes", icon: "fa-solid fa-check", default: defaultYes, ...yes, callback: () => box(true) },
-      { action: "no", label: "No", icon: "fa-solid fa-xmark", default: !defaultYes, ...no, callback: () => box(false) },
+      { action: "yes", label: "COMMON.Yes", icon: "fa-solid fa-check", default: defaultYes, ...yes, callback: () => box(true) },
+      { action: "no", label: "COMMON.No", icon: "fa-solid fa-xmark", default: !defaultYes, ...no, callback: () => box(false) },
     ],
   });
   return result === true;
@@ -267,7 +268,7 @@ export async function pickOne(items, { title, icon, label = defaultLabel, value,
     title,
     icon,
     content,
-    ok: { label: libKey("GATOSLIB.Pick", "Confirm"), ...ok, read },
+    ok: { label: libKey("GATOSLIB.Pick", "COMMON.Confirm"), ...ok, read },
   });
 }
 
@@ -411,7 +412,7 @@ export async function pickList(
       live(event, dialog);
       render?.(event, dialog);
     },
-    ok: { label: libKey("GATOSLIB.Pick", "Confirm"), ...ok, read },
+    ok: { label: libKey("GATOSLIB.Pick", "COMMON.Confirm"), ...ok, read },
   });
 }
 

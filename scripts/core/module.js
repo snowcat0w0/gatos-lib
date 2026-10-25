@@ -7,7 +7,7 @@
  * `game` / `ui` / `foundry` only when called.
  */
 import { registerSettings } from "./settings.js";
-import { getFlagOr, flagKey, flagDeleteKey, isSelfUpdate } from "../data/flags.js";
+import { getFlagOr, flagKey, flagDeleteKey, flagDeletion, isFlagDeleted, isSelfUpdate } from "../data/flags.js";
 
 /** Template names may be bare ("viewer", "parts/row") or full paths ending in .hbs / .html. */
 const isPath = (name) => /\.(hbs|html)$/i.test(name);
@@ -74,8 +74,12 @@ export function defineModule(id, { langPrefix = "", settingsPrefix } = {}) {
     flag: (doc, key, dflt, options) => getFlagOr(doc, id, key, dflt, options),
     /** `flags.${id}.${key}` */
     flagKey: (key) => flagKey(id, key),
-    /** `flags.${id}.-=${key}` */
+    /** `flags.${id}.-=${key}` — legacy deletion key, warns on v14; prefer flagDeletion. */
     flagDeleteKey: (key) => flagDeleteKey(id, key),
+    /** `{ "flags.${id}.${key}": _del }` — spread into update data to delete the flag. */
+    flagDeletion: (key, options) => flagDeletion(id, key, options),
+    /** Did these update-hook changes delete `flags.${id}.${key}` (or a parent)? */
+    isFlagDeleted: (changes, key) => isFlagDeleted(changes, id, key),
     /** Was this update marked by mod.mark()? */
     isSelfUpdate: (options) => isSelfUpdate(id, options),
     /** Copy of options with the `[id]: true` self-update marker. */

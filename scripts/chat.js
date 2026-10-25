@@ -162,17 +162,22 @@ export function messageOf(li) {
 /**
  * Push a getChatMessageContextOptions entry whose condition/callback receive the ChatMessage instead
  * of the `li`. A condition that throws hides the entry. `icon` may be HTML or bare FA classes.
+ * The pushed entry uses the v14 ContextMenuEntry shape `{label, icon, visible, onClick}`
+ * (client/applications/ux/context-menu.mjs; `name` / `condition` / `callback` entries warn there).
+ * `label` / `visible` / `onClick` are accepted as aliases of `name` / `condition` / `callback`.
  * @param {object[]} options  The hook's options array.
  * @param {{name: string, icon?: string, group?: string, classes?: string,
  *          condition?: (message: ChatMessage, li: HTMLElement) => boolean,
  *          callback: (message: ChatMessage, li: HTMLElement) => any}} entry
  * @returns {object} The pushed entry.
  */
-export function pushMessageContextOption(options, { name, icon, group, classes, condition, callback }) {
+export function pushMessageContextOption(options, { name, label, icon, group, classes, condition, visible, callback, onClick }) {
+  condition ??= visible;
+  callback ??= onClick;
   const entry = {
-    name,
-    icon: icon && !icon.includes("<") ? `<i class="${esc(icon)}"></i>` : icon ?? "",
-    condition: (li) => {
+    label: label ?? name,
+    icon: icon ?? "",
+    visible: (li) => {
       const message = messageOf(li);
       if (!message) return false;
       try {
@@ -181,7 +186,7 @@ export function pushMessageContextOption(options, { name, icon, group, classes, 
         return false;
       }
     },
-    callback: (li) => {
+    onClick: (event, li) => {
       const message = messageOf(li);
       if (message) return callback(message, htmlRoot(li));
     },
@@ -252,6 +257,9 @@ export function jumpToMessage(id, { flashClass = "gatos-flash", duration = 1600,
 /*  Chat UI injection                           */
 /* -------------------------------------------- */
 
+/** v13 `#chat-controls` selectors renamed in v14 (templates/sidebar/tabs/chat/notifications.hbs). */
+const CONTROL_ALIASES = Object.freeze({ "#roll-privacy": "#message-modes" });
+
 // ported from gatos-chat-tools viewer.js injectChatButton, images.js injectUploadButton, whisper.js injectWhisperButton, gatos-visual-novel stage.js injectToggleButton
 /**
  * Add a `button.ui-control.icon` to `#chat-controls`, once (the first class of `cls` is the marker).
@@ -263,6 +271,7 @@ export function jumpToMessage(id, { flashClass = "gatos-flash", duration = 1600,
  * @param {(ev: MouseEvent, btn: HTMLButtonElement) => any} [options.onClick]
  * @param {(ev: MouseEvent, btn: HTMLButtonElement) => any} [options.onContextMenu]  Right click (default prevented).
  * @param {"append"|"prepend"|{after?: string, before?: string, fallback?: "append"|"prepend"}} [options.position="append"]
+ *   The v13 anchor `#roll-privacy` also finds v14's `#message-modes`.
  * @param {HTMLElement} [options.controls]   The bar (renderChatInput passes it); default `#chat-controls`.
  * @returns {HTMLButtonElement|null}
  */
@@ -293,7 +302,8 @@ export function addChatControl({ cls, icon, label = "", onClick, onContextMenu, 
 
   if (position === "prepend") controls.prepend(btn);
   else if (position && typeof position === "object") {
-    const anchor = position.after ? controls.querySelector(position.after) : position.before ? controls.querySelector(position.before) : null;
+    const find = (sel) => controls.querySelector(sel) ?? (CONTROL_ALIASES[sel] ? controls.querySelector(CONTROL_ALIASES[sel]) : null);
+    const anchor = position.after ? find(position.after) : position.before ? find(position.before) : null;
     if (anchor && position.after) anchor.after(btn);
     else if (anchor) anchor.before(btn);
     else if (position.fallback === "prepend") controls.prepend(btn);
@@ -308,10 +318,11 @@ const delayOf = (v, dflt) => (v === true ? dflt : Number.isFinite(v) ? v : null)
 /**
  * Run `fn` whenever the chat input UI is (re)built: `renderChatInput`, `renderChatLog` and, deferred,
  * `collapseSidebar` (the input moves between the sidebar, the popout and the notifications area).
+ * In v14 `#chat-message` is a `<prose-mirror>` element, not a `<textarea>` (templates/sidebar/tabs/chat/notifications.hbs).
  * Hooks are registered immediately with `Hooks.on`, so several callers run in the order they called
  * `onChatUiRender` (bars mounted above the textarea depend on that order). Deferred calls with the same
  * delay keep that order too.
- * @param {(ctx: {hook: string, app: Application|null, input: HTMLTextAreaElement|null, controls: HTMLElement|null}) => any} fn
+ * @param {(ctx: {hook: string, app: Application|null, input: HTMLElement|null, controls: HTMLElement|null}) => any} fn
  * @param {object} [options]
  * @param {boolean|number} [options.deferCollapse=true]  collapseSidebar delay in ms (true = 50, false = not hooked).
  * @param {boolean|number} [options.defer=false]         Also defer the render hooks (true = 0 ms).

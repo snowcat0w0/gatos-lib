@@ -37,7 +37,7 @@ test("module.json points at existing files and is a library", () => {
   const manifest = JSON.parse(fs.readFileSync(path.join(root, "module.json"), "utf8"));
   assert.equal(manifest.id, "gatos-lib");
   assert.equal(manifest.library, true);
-  assert.equal(manifest.compatibility.minimum, "13");
+  assert.equal(manifest.compatibility.minimum, "14");
   for (const f of [...manifest.esmodules, ...manifest.styles, ...manifest.languages.map((l) => l.path)]) {
     assert.ok(fs.existsSync(path.join(root, f)), `${f} missing`);
   }

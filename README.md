@@ -1,6 +1,6 @@
 # gatos-lib — Gato's Library
 
-Foundry VTT v13 공용 라이브러리 모듈. `gatos-*` 모듈들이 복제해 쓰던 보일러플레이트(설정 등록, 소켓 릴레이, 버전 호환 심, 다이얼로그, 시트/HUD 주입, 플래그·파일 유틸)를 한 곳에 모은다. **시스템 무관**: `scripts/` 어디에도 특정 게임 시스템(PF1 등)의 전역·스키마 경로가 없고, 테스트가 이를 강제한다. 시스템 전용 헬퍼는 별도 라이브러리(`gatos-pf1-lib`, 미작성)로 간다. 설계 근거와 마이그레이션 맵은 [PLAN.md](PLAN.md).
+Foundry VTT v14 공용 라이브러리 모듈(1.1.0부터 v14 전용, v13은 1.0.x). `gatos-*` 모듈들이 복제해 쓰던 보일러플레이트(설정 등록, 소켓 릴레이, 버전 호환 심, 다이얼로그, 시트/HUD 주입, 플래그·파일 유틸)를 한 곳에 모은다. **시스템 무관**: `scripts/` 어디에도 특정 게임 시스템(PF1 등)의 전역·스키마 경로가 없고, 테스트가 이를 강제한다. 시스템 전용 헬퍼는 별도 라이브러리(`gatos-pf1-lib`, 미작성)로 간다. 설계 근거와 마이그레이션 맵은 [PLAN.md](PLAN.md).
 
 상태: **1.0.0-alpha.1 — 골격(0a 단계)**. 아직 어떤 모듈도 이 라이브러리에 의존하지 않는다. Node 테스트와 스텁 import만 통과했고, 실제 Foundry 월드에서는 검증되지 않았다.
 
@@ -93,6 +93,14 @@ PLAN §5.3이 명세이고, 구현 중 바뀐 점은 각 파일 머리 주석과
 - `addSceneControlTool`의 토글 상태(boolean `active`)는 클로저에 기억한다. 씬 컨트롤은 `render({reset:true})`마다 훅을 다시 돌리므로 그렇지 않으면 초기값으로 되돌아간다.
 - `stripEnrichers`가 `[[1d4]]`에서 주사위 식을 지우던 원본(buff-finder catalog.js) 버그를 고쳤다(`[[/r …]]` 명령 접두만 제거).
 - 추가 export: `activeOwnerOf`, `resolveActorSync`, `watchUserFlag`, `resolveWhisper`, `chatLogElements`, `itemIndexKey`, `cacheBust`, `gatosOptions`, `libActive`, `LIB_ID`.
+
+### v14 이식 (1.1.0-alpha.1)
+
+- 공개 API는 1.0.x와 호환. `flagDeleteKey`(`flags.<id>.-=<key>`)는 그대로 두되 v14에서 호환성 경고가 나므로(v16 제거) 새 코드는 `flagDeletion(id, key)` / `mod.flagDeletion(key)`(`{"flags.<id>.<key>": _del}`)를 쓴다.
+- v14 update 훅의 `changes`에는 `-=` 키가 없고 삭제 경로에 `ForcedDeletion` 연산자가 들어온다. 삭제 여부는 `isFlagDeleted(changes, id, key)` / `mod.isFlagDeleted(changes, key)`로 검사한다(레거시 `-=` 키도 인식). `watchUserFlag` 등 내부 감지도 연산자를 인식한다.
+- `pushMessageContextOption`은 v14 `ContextMenuEntry` 형태(`label`/`visible`/`onClick`)로 넣는다. 입력은 기존 `name`/`condition`/`callback` 그대로(새 이름도 별칭으로 받음).
+- 다이얼로그 기본 버튼 라벨은 v14 코어 키 `COMMON.Confirm`/`COMMON.Cancel`/`COMMON.Yes`/`COMMON.No`(v13의 최상위 `Confirm` 등은 v14에서 삭제됨).
+- `addChatControl`의 위치 기준 `#roll-privacy`는 v14 `#message-modes`로도 찾는다. v14의 `#chat-message`는 `<textarea>`가 아니라 `<prose-mirror>` 요소다(`onChatUiRender`의 `input`).
 
 ### "두 번째 소비자" 규칙 (Tier 2)
 
