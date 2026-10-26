@@ -3,13 +3,35 @@
   "title": "Gato's Library",
   "description": "Gato's 모듈(gatos-*)이 공유하는 시스템 무관 공통 라이브러리: 설정 등록, 소켓 릴레이, 버전 호환 심, 다이얼로그·시트 주입 헬퍼, 플래그·파일 유틸. 단독으로는 아무 기능도 하지 않습니다.",
   "version": "1.0.0-alpha.1",
-  "authors": [{ "name": "jesun" }],
+  "authors": [
+    {
+      "name": "jesun"
+    }
+  ],
+  "url": "https://github.com/snowcat0w0/gatos-lib",
+  "manifest": "https://raw.githubusercontent.com/snowcat0w0/gatos-lib/master/module.json",
+  "download": "https://github.com/snowcat0w0/gatos-lib/releases/download/v1.0.0-alpha.1/gatos-lib.zip",
   "library": true,
-  "compatibility": { "minimum": "13", "verified": "13" },
-  "esmodules": ["scripts/index.js"],
-  "styles": ["styles/lib.css"],
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "esmodules": [
+    "scripts/index.js"
+  ],
+  "styles": [
+    "styles/lib.css"
+  ],
   "languages": [
-    { "lang": "ko", "name": "한국어", "path": "lang/ko.json" },
-    { "lang": "en", "name": "English", "path": "lang/en.json" }
+    {
+      "lang": "ko",
+      "name": "한국어",
+      "path": "lang/ko.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
   ]
 }
